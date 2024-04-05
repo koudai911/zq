@@ -252,9 +252,14 @@ function claim_rewards() {
 
 
 function check_logs() {
-    screen -r ore
+    # screen -r ore
+    screen -list
 }
 
+# 清空所有ore
+function clean_ore(){
+    pkill -f '.ore'
+}
 
 function multiple() {
 #!/bin/bash
@@ -354,6 +359,7 @@ function main_menu() {
         echo "7. 单机多开钱包，需要自行准备json私钥"
         echo "8. 单机多开钱包，查看奖励"
         echo "0. 根据data.json文件配置一键启动"
+        echo "100. 清空所有ore进程"
         read -p "请输入选项（1-7）: " OPTION
 
         case $OPTION in
@@ -366,6 +372,7 @@ function main_menu() {
         7) multiple ;; 
         8) check_multiple ;; 
         0) json_start ;; 
+        100) clean_ore ;; 
         
         esac
         echo "按任意键返回主菜单..."
