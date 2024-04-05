@@ -220,13 +220,15 @@ jq -c '.[]' data.json | while read -r line; do
     THREADS=$(echo $line | jq -r '.THREADS')  #线程数
     PRIORITY_FEE=$(echo $line | jq -r '.PRIORITY_FEE')  #优先费
     _jincheng=$(echo $line | jq -r '.jincheng')  # 进程数量
+    id_json=$(echo $line | jq -r '.id_json')  # 进程数量
     
     
     for i in $(seq 1 $_jincheng)
     do
-    start="while true; do ore --rpc $RPC_URL --keypair ~/.config/solana/id.json --priority-fee $PRIORITY_FEE mine --threads $THREADS; echo '进程异常退出，等待重启' >&2; sleep 1; done"
+    start="while true; do ore --rpc $RPC_URL --keypair ~/.config/solana/$id_json --priority-fee $PRIORITY_FEE mine --threads $THREADS; echo '进程异常退出，等待重启' >&2; sleep 1; done"
     screen -dmS "$session_name" bash -c "$start"
     echo "$RPC_URL新增的第$i个进程！"
+    sleep 3
     done
 done
 
@@ -336,6 +338,7 @@ end=${range[1]}
 # 执行循环
 for i in $(seq $start $end); do
   ore --rpc https://api.mainnet-beta.solana.com --keypair ~/.config/solana/id$i.json --priority-fee 1 rewards
+  sleep 6
 done
 
 }
