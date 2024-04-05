@@ -206,6 +206,39 @@ echo "使用 'screen -r $session_name' 命令重新连接到此会话。"
 
 }
 
+# 根据json文件配置执行
+function json_start() {
+
+# 使用 screen 和 Ore CLI 开始挖矿
+session_name="ore"
+echo "开始挖矿，会话名称为 $session_name ..."
+
+# 使用jq解析JSON文件
+jq -c '.[]' data.json | while read -r line; do
+    # 从每个JSON对象中提取name和age
+    RPC_URL=$(echo $line | jq -r '.RPC_URL')  # rpc
+    THREADS=$(echo $line | jq -r '.THREADS')  #线程数
+    PRIORITY_FEE=$(echo $line | jq -r '.PRIORITY_FEE')  #优先费
+    _jincheng=$(echo $line | jq -r '.jincheng')  # 进程数量
+    
+    
+    for i in $(seq 1 $_jincheng)
+    do
+    start="while true; do ore --rpc $RPC_URL --keypair ~/.config/solana/id.json --priority-fee $PRIORITY_FEE mine --threads $THREADS; echo '进程异常退出，等待重启' >&2; sleep 1; done"
+    screen -dmS "$session_name" bash -c "$start"
+    echo "$RPC_URL新增的第$i个进程！"
+    done
+done
+
+
+echo "挖矿进程已在名为 $session_name 的 screen 会话中后台启动。"
+echo "使用 'screen -r $session_name' 命令重新连接到此会话。"
+
+}
+
+
+
+
 
 # 查询奖励
 function view_rewards() {
@@ -320,6 +353,7 @@ function main_menu() {
         echo "6. 查看节点运行情况"
         echo "7. 单机多开钱包，需要自行准备json私钥"
         echo "8. 单机多开钱包，查看奖励"
+        echo "0. 根据data.json文件配置一键启动"
         read -p "请输入选项（1-7）: " OPTION
 
         case $OPTION in
@@ -331,6 +365,8 @@ function main_menu() {
         6) check_logs ;;
         7) multiple ;; 
         8) check_multiple ;; 
+        0) json_start ;; 
+        
         esac
         echo "按任意键返回主菜单..."
         read -n 1
