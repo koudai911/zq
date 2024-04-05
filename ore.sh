@@ -183,8 +183,8 @@ read -p "请输入挖矿时要使用的线程数 (默认设置 4): " custom_thre
 THREADS=${custom_threads:-4}
 
 # 获取用户输入的优先费用或使用默认值
-read -p "请输入交易的优先费用 (默认设置 1111): " custom_priority_fee
-PRIORITY_FEE=${custom_priority_fee:1111}
+read -p "请输入交易的优先费用 (默认设置 1): " custom_priority_fee
+PRIORITY_FEE=${custom_priority_fee:-1}
 
 # 获取用户输入的优先费用或使用默认值
 echo "请输入进程数量(不超过3位数):"
