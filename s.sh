@@ -211,8 +211,6 @@ function json_start() {
 
 # 使用 screen 和 Ore CLI 开始挖矿
 
-
-
 # 使用jq解析JSON文件
 jq -c '.[]' data.json | while read -r line; do
     # 从每个JSON对象中提取name和age
@@ -222,8 +220,7 @@ jq -c '.[]' data.json | while read -r line; do
     _jincheng=$(echo $line | jq -r '.jincheng')  # 进程数量
     id_json=$(echo $line | jq -r '.id_json')  # 进程数量
     
-    session_name="ore"+$id_json
-     
+    session_name="ore_${id_json}"
     for i in $(seq 1 $_jincheng)
     do
     start="while true; do ore --rpc $RPC_URL --keypair ~/.config/solana/$id_json --priority-fee $PRIORITY_FEE mine --threads $THREADS; echo '进程异常退出，等待重启' >&2; sleep 1; done"
@@ -345,7 +342,7 @@ end=${range[1]}
 # 执行循环
 for i in $(seq $start $end); do
   ore --rpc $RPC_URL --keypair ~/.config/solana/id$i.json --priority-fee 1 rewards
-  sleep 6
+  sleep 2
 done
 
 }
