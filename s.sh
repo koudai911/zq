@@ -223,12 +223,12 @@ jq -c '.[]' data.json | while read -r line; do
     id_json=$(echo $line | jq -r '.id_json')  # 进程数量
     
     session_name="ore"+$id_json
-    
+     
     for i in $(seq 1 $_jincheng)
     do
     start="while true; do ore --rpc $RPC_URL --keypair ~/.config/solana/$id_json --priority-fee $PRIORITY_FEE mine --threads $THREADS; echo '进程异常退出，等待重启' >&2; sleep 1; done"
     screen -dmS "$session_name" bash -c "$start"
-    echo "$RPC_URL新增的第$i个进程;开始挖矿，会话名称为 $session_name ...""
+    echo "$RPC_URL新增的第$i个进程;开始挖矿，会话名称为 $session_name ..."
     sleep 3
     done
 done
