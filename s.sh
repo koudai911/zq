@@ -211,7 +211,7 @@ function json_start() {
 
 # 使用 screen 和 Ore CLI 开始挖矿
 
-echo "开始挖矿，会话名称为 $session_name ..."
+
 
 # 使用jq解析JSON文件
 jq -c '.[]' data.json | while read -r line; do
@@ -228,7 +228,7 @@ jq -c '.[]' data.json | while read -r line; do
     do
     start="while true; do ore --rpc $RPC_URL --keypair ~/.config/solana/$id_json --priority-fee $PRIORITY_FEE mine --threads $THREADS; echo '进程异常退出，等待重启' >&2; sleep 1; done"
     screen -dmS "$session_name" bash -c "$start"
-    echo "$RPC_URL新增的第$i个进程！"
+    echo "$RPC_URL新增的第$i个进程;开始挖矿，会话名称为 $session_name ...""
     sleep 3
     done
 done
