@@ -245,6 +245,7 @@ echo "使用 'screen -r $session_name' 命令重新连接到此会话。"
 
 # 查询奖励
 function view_rewards() {
+    # 获取用户输入的 RPC 地址或使用默认地址
     read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
     RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
     ore --rpc $RPC_URL--keypair ~/.config/solana/id.json rewards
@@ -252,6 +253,7 @@ function view_rewards() {
 
 # 领取奖励
 function claim_rewards() {
+    # 获取用户输入的 RPC 地址或使用默认地址
     read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
     RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
     ore --rpc $RPC_URL --keypair ~/.config/solana/id.json claim
@@ -335,6 +337,7 @@ function check_multiple() {
 # 提示用户同时输入起始和结束编号，用空格分隔
 echo -n "请输入起始和结束编号，中间用空格分隔比如跑了10个钱包地址，输入1 10即可: "
 read -a range
+# 获取用户输入的 RPC 地址或使用默认地址
 read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
 RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
 
