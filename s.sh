@@ -210,7 +210,7 @@ echo "使用 'screen -r $session_name' 命令重新连接到此会话。"
 function json_start() {
 
 # 使用 screen 和 Ore CLI 开始挖矿
-session_name="ore"
+
 echo "开始挖矿，会话名称为 $session_name ..."
 
 # 使用jq解析JSON文件
@@ -222,6 +222,7 @@ jq -c '.[]' data.json | while read -r line; do
     _jincheng=$(echo $line | jq -r '.jincheng')  # 进程数量
     id_json=$(echo $line | jq -r '.id_json')  # 进程数量
     
+    session_name="ore"+$id_json
     
     for i in $(seq 1 $_jincheng)
     do
@@ -244,12 +245,16 @@ echo "使用 'screen -r $session_name' 命令重新连接到此会话。"
 
 # 查询奖励
 function view_rewards() {
-    ore --rpc https://api.mainnet-beta.solana.com --keypair ~/.config/solana/id.json rewards
+    read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
+    RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
+    ore --rpc $RPC_URL--keypair ~/.config/solana/id.json rewards
 }
 
 # 领取奖励
 function claim_rewards() {
-    ore --rpc https://api.mainnet-beta.solana.com --keypair ~/.config/solana/id.json claim
+    read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
+    RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
+    ore --rpc $RPC_URL --keypair ~/.config/solana/id.json claim
 }
 
 
@@ -330,6 +335,8 @@ function check_multiple() {
 # 提示用户同时输入起始和结束编号，用空格分隔
 echo -n "请输入起始和结束编号，中间用空格分隔比如跑了10个钱包地址，输入1 10即可: "
 read -a range
+read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
+RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
 
 # 获取起始和结束编号
 start=${range[0]}
@@ -337,7 +344,7 @@ end=${range[1]}
 
 # 执行循环
 for i in $(seq $start $end); do
-  ore --rpc https://api.mainnet-beta.solana.com --keypair ~/.config/solana/id$i.json --priority-fee 1 rewards
+  ore --rpc $RPC_URL --keypair ~/.config/solana/id$i.json --priority-fee 1 rewards
   sleep 6
 done
 
