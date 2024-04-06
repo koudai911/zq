@@ -243,20 +243,22 @@ echo "使用 'screen -r $session_name' 命令重新连接到此会话。"
 
 
 
+
+
 # 查询奖励
 function view_rewards() {
-# 获取用户输入的 RPC 地址或使用默认地址
-read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
-RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
-ore --rpc $RPC_URL--keypair ~/.config/solana/id.json rewards
+    # 获取用户输入的 RPC 地址或使用默认地址
+    read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
+    RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
+    ore --rpc $RPC_URL--keypair ~/.config/solana/id.json rewards
 }
 
 # 领取奖励
 function claim_rewards() {
-# 获取用户输入的 RPC 地址或使用默认地址
-read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
-RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
-ore --rpc $RPC_URL --keypair ~/.config/solana/id.json claim
+    # 获取用户输入的 RPC 地址或使用默认地址
+    read -p "请输入自定义的 RPC 地址，建议使用免费的Quicknode 或者alchemy SOL rpc(默认设置使用 https://api.mainnet-beta.solana.com): " custom_rpc
+    RPC_URL=${custom_rpc:-https://api.mainnet-beta.solana.com}
+    ore --rpc $RPC_URL --keypair ~/.config/solana/id.json claim
 }
 
 
