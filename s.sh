@@ -213,7 +213,7 @@ function json_start() {
 
 # 使用jq解析JSON文件
 jq -c '.[]' data.json | while read -r line; do
-    public_rpc_url = "https://api.mainnet-beta.solana.com"
+    # public_rpc_url = "https://api.mainnet-beta.solana.com"
     # 从每个JSON对象中提取name和age
     RPC_URL=$(echo $line | jq -r '.RPC_URL')  # rpc
     THREADS=$(echo $line | jq -r '.THREADS')  #线程数
@@ -225,7 +225,7 @@ jq -c '.[]' data.json | while read -r line; do
     for i in $(seq 1 $_jincheng)
     do
     # start="while true; do ore --rpc $RPC_URL --keypair ~/.config/solana/$id_json --priority-fee $PRIORITY_FEE mine --threads $THREADS; echo '进程异常退出，等待重启' >&2; sleep 1; done"
-    start="while true; do /root/ore-cli/target/release/ore --rpc $public_rpc_url --post-rpc $RPC_URL --keypair ~/.config/solana/$id_json --priority-fee $PRIORITY_FEE mine --threads $THREADS; echo '进程异常退出，等待重启' >&2; sleep 1; done"
+    start="while true; do /root/ore-cli/target/release/ore --rpc https://api.mainnet-beta.solana.com --post-rpc $RPC_URL --keypair ~/.config/solana/$id_json --priority-fee $PRIORITY_FEE mine --threads $THREADS; echo '进程异常退出，等待重启' >&2; sleep 1; done"
 
     screen -dmS "$session_name" bash -c "$start"
     echo "$RPC_URL新增的第$i个进程;开始挖矿，会话名称为 $session_name ..."
