@@ -210,9 +210,10 @@ echo "使用 'screen -r $session_name' 命令重新连接到此会话。"
 function json_start() {
 
 # 使用 screen 和 Ore CLI 开始挖矿
-public_rpc_url = "https://api.mainnet-beta.solana.com"
+
 # 使用jq解析JSON文件
 jq -c '.[]' data.json | while read -r line; do
+    public_rpc_url = "https://api.mainnet-beta.solana.com"
     # 从每个JSON对象中提取name和age
     RPC_URL=$(echo $line | jq -r '.RPC_URL')  # rpc
     THREADS=$(echo $line | jq -r '.THREADS')  #线程数
