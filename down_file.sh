@@ -17,7 +17,7 @@ chmod +x mc
 
 # 将 mc 移动到 /usr/local/bin 目录，以便全局使用
 sudo mv mc /usr/local/bin/
-mc alias set myminio http://$MINIO_URL $ACCESS_KEY $SECRET_KEY
+mc alias set myminio $MINIO_URL $ACCESS_KEY $SECRET_KEY
 
 
 # 配置变量
