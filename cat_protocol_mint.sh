@@ -23,10 +23,10 @@ check_root() {
 install_env() {
     check_root
 
-    read -p "请输入tracker_url,默认值：http://127.0.0.1:3000: " TRACKER_URL=${TRACKER_URL:"http://127.0.0.1:3000"}
-    read -p "请输入RPC_URL，默认值:http://127.0.0.1:8332 " RPC_URL=${RPC_URL:"http://127.0.0.1:8332"}
-    read -p "请输入USERNAME,默认值:bitcoin " USERNAME=${USERNAME:"bitcoin"}
-    read -p "请输入PASSWORD,默认值:opcatAwesome" PASSWORD=${PASSWORD:"opcatAwesome"}
+    read -p "请输入tracker_url,默认值：http://127.0.0.1:3000: " TRACKER_URL=${"http://127.0.0.1:3000"}
+    read -p "请输入RPC_URL，默认值:http://127.0.0.1:8332 " RPC_URL=${"http://127.0.0.1:8332"}
+    read -p "请输入USERNAME,默认值:bitcoin " USERNAME=${"bitcoin"}
+    read -p "请输入PASSWORD,默认值:opcatAwesome" PASSWORD=${"opcatAwesome"}
 
     sudo apt update && sudo apt upgrade -y
     sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu unzip zip docker.io -y
