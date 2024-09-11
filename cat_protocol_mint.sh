@@ -23,15 +23,15 @@ check_root() {
 install_env() {
     check_root
 
-    read -p "请输入tracker_url,默认值：$DEFAULT_RACKER_URL " TRACKER_URL
-    read -p "请输入RPC_URL，默认值: $DEFAULT_RPC_URL" RPC_URL
-    read -p "请输入USERNAME,默认值: $DEFAULT_USERNAME " USERNAME
-    read -p "请输入PASSWORD,默认值: $DEFAULT_PASSWORD" PASSWORD
+    read -p "请输入tracker_url,默认值：($DEFAULT_RACKER_URL): " TRACKER_URL
+    read -p "请输入RPC_URL，默认值: ($DEFAULT_RPC_URL): " RPC_URL
+    read -p "请输入USERNAME,默认值: ($DEFAULT_USERNAME): " USERNAME
+    read -p "请输入PASSWORD,默认值: ($DEFAULT_PASSWORD): " PASSWORD
 
-    TRACKER_URL = ${TRACKER_URL:-$DEFAULT_RACKER_URL}
-    RPC_URL = ${RPC_URL:-$DEFAULT_RPC_URL}
-    USERNAME = ${USERNAME:-$DEFAULT_USERNAME}
-    PASSWORD = ${PASSWORD:-$DEFAULT_PASSWORD}
+    # TRACKER_URL = ${TRACKER_URL:-$DEFAULT_RACKER_URL}
+    # RPC_URL = ${RPC_URL:-$DEFAULT_RPC_URL}
+    # USERNAME = ${USERNAME:-$DEFAULT_USERNAME}
+    # PASSWORD = ${PASSWORD:-$DEFAULT_PASSWORD}
 
 
     sudo apt update && sudo apt upgrade -y
