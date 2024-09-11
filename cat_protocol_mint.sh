@@ -57,7 +57,7 @@ install_env() {
     sudo docker-compose up -d
 
     cd ../../
-    sudo docker build -t tracker:latest .
+    # sudo docker build -t tracker:latest .
     # sudo docker run -d \
     #     --name tracker \
     #     --add-host="host.docker.internal:host-gateway" \
