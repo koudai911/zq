@@ -9,10 +9,10 @@ Error="[${Red_font_prefix}错误${Font_color_suffix}]"
 Tip="[${Green_font_prefix}注意${Font_color_suffix}]"
 
 
-# TRACKER_URL="$1"  # 第一个参数：TRACKER_URL 主节点  http://127.0.0.1:3000
-# RPC_URL="$2"  # 第一个参数：rpc url  http://127.0.0.1:8332
-# USERNAME="$3"  # 第一个参数：bitcoin
-# PASSWORD="$4"  # 第一个参数：opcatAwesome
+DEFAULT_RACKER_URL="http://127.0.0.1:3000"  # 第一个参数：TRACKER_URL 主节点  http://127.0.0.1:3000
+DEFAULT_RPC_URL="http://127.0.0.1:8332"  # 第一个参数：rpc url  http://127.0.0.1:8332
+DEFAULT_USERNAME="bitcoin"  # 第一个参数：bitcoin
+DEFAULT_PASSWORD="opcatAwesome"  # 第一个参数：opcatAwesome
 
 
 check_root() {
@@ -23,10 +23,16 @@ check_root() {
 install_env() {
     check_root
 
-    read -p "请输入tracker_url,默认值：http://127.0.0.1:3000: " TRACKER_URL=${"http://127.0.0.1:3000"}
-    read -p "请输入RPC_URL，默认值:http://127.0.0.1:8332 " RPC_URL=${"http://127.0.0.1:8332"}
-    read -p "请输入USERNAME,默认值:bitcoin " USERNAME=${"bitcoin"}
-    read -p "请输入PASSWORD,默认值:opcatAwesome" PASSWORD=${"opcatAwesome"}
+    read -p "请输入tracker_url,默认值：$DEFAULT_RACKER_URL " TRACKER_URL
+    read -p "请输入RPC_URL，默认值: $DEFAULT_RPC_URL" RPC_URL
+    read -p "请输入USERNAME,默认值: $DEFAULT_USERNAME " USERNAME
+    read -p "请输入PASSWORD,默认值: $DEFAULT_PASSWORD" PASSWORD
+
+    TRACKER_URL = ${TRACKER_URL:-$DEFAULT_RACKER_URL}
+    RPC_URL = ${TRACKER_URL:-$DEFAULT_RPC_URL}
+    USERNAME = ${TRACKER_URL:-$DEFAULT_USERNAME}
+    PASSWORD = ${TRACKER_URL:-$DEFAULT_PASSWORD}
+
 
     sudo apt update && sudo apt upgrade -y
     sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu unzip zip docker.io -y
